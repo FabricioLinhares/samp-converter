@@ -3,7 +3,7 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { HStack, VStack, IconButton, Heading } from "@chakra-ui/react";
 
 import { getCommandParams } from "../../../utils/getCommandParams";
-import ResultTextarea from "../../ResultTextarea";
+import ResultTextarea from "../../resulttextarea";
 import TextareaWithTitle from "../../TextareaWithTitle";
 import ArgumentsConfigurator from "../../ArgumentsConfigurator";
 
