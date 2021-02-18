@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { RepeatIcon } from "@chakra-ui/icons";
-import {
-  HStack,
-  VStack,
-  IconButton,
-  FormControl,
-  FormLabel,
-  Switch,
-} from "@chakra-ui/react";
+import { HStack, VStack, IconButton, Heading } from "@chakra-ui/react";
 
 import { getCommandParams } from "../../../utils/getCommandParams";
 import ResultTextarea from "../../ResultTextarea";
 import TextareaWithTitle from "../../TextareaWithTitle";
+import ArgumentsConfigurator from "../../ArgumentsConfigurator";
 
 const SaveVehicleToArrayConverter = () => {
-  // const [allowedParams, setAllowedParams] = useState([]);
+  const optionsConfig = [
+    "modelid",
+    "posX",
+    "posY",
+    "posZ",
+    "angleZ",
+    "color1",
+    "color2",
+  ];
+
   const [saveText, setSaveText] = useState("");
   const [convertText, setConvertText] = useState("");
+  const [allowedParams, setAllowedParams] = useState(
+    Array(optionsConfig.length).fill(true)
+  );
 
   function handleChangeSaveText(event) {
     const text = event.target.value;
@@ -27,8 +33,7 @@ const SaveVehicleToArrayConverter = () => {
   function convertSave([command, comment], indexLine, array) {
     const commandParams = getCommandParams(command);
 
-    // const params = commandParams.filter((_, index) => allowedParams[index]);
-    const params = commandParams;
+    const params = commandParams.filter((_, index) => allowedParams[index]);
 
     const arrayLine = `{${params.join(",")}}${
       indexLine != array.length - 1 ? "," : ""
@@ -59,47 +64,16 @@ const SaveVehicleToArrayConverter = () => {
           spacing={4}
           justifyContent="center"
         >
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              modelid
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
-
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              spawn_X
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
-
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              spawn_Y
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
-
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              z_angle
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
-
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              color1
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
-
-          <FormControl w="auto" display="flex" alignItems="center">
-            <FormLabel mb="0" color="white">
-              color2
-            </FormLabel>
-            <Switch colorScheme="secondary" />
-          </FormControl>
+          <Heading size="md" color="white">
+            Convert /save
+          </Heading>
+          <ArgumentsConfigurator
+            allowedOptions={allowedParams}
+            setAllowedOptions={setAllowedParams}
+            options={optionsConfig}
+            position="absolute"
+            right="3"
+          />
         </HStack>
         <TextareaWithTitle
           title="AddStaticVehicle"

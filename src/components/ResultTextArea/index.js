@@ -19,6 +19,7 @@ const ResultTextarea = ({ result }) => {
           cursor="pointer"
           onClick={downloadResult}
           variant="link"
+          isDisabled
         />
         <IconButton
           aria-label="copy text"
