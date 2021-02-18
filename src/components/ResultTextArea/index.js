@@ -1,14 +1,16 @@
 import { CopyIcon, DownloadIcon } from "@chakra-ui/icons";
-import { HStack, Textarea, IconButton, Box } from "@chakra-ui/react";
+import { HStack, IconButton, Box, useClipboard } from "@chakra-ui/react";
 
-const ResultTextArea = ({ result }) => {
+import TextareaWithTitle from "../TextareaWithTitle";
+
+const ResultTextarea = ({ result }) => {
+  const { hasCopied, onCopy } = useClipboard(result);
+
   function downloadResult() {}
-
-  function copyResult() {}
 
   return (
     <Box w="100%" position="relative">
-      <HStack spacing={4} position="absolute" zIndex="2" right="0" top={2}>
+      <HStack spacing={4} position="absolute" zIndex="2" right={3} top={2}>
         <IconButton
           aria-label="download as .txt"
           boxSize="1.5rem"
@@ -24,20 +26,26 @@ const ResultTextArea = ({ result }) => {
           as={CopyIcon}
           colorScheme="primary"
           cursor="pointer"
-          onClick={copyResult}
+          onClick={onCopy}
           variant="link"
         />
       </HStack>
-      <Textarea
+      <TextareaWithTitle
+        title={result ? `${hasCopied ? "Result Copied" : "Result"}` : ""}
+        value={result}
         resize="none"
         colorScheme="primary"
         variant="filled"
-        value={result}
-        borderColor={result ? "primary.400" : "transparent"}
         isReadOnly
+        borderColor={
+          result
+            ? `${hasCopied ? "secondary.400" : "primary.400"}`
+            : "transparent"
+        }
+        onDoubleClick={onCopy}
       />
     </Box>
   );
 };
 
-export default ResultTextArea;
+export default ResultTextarea;

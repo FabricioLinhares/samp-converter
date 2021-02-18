@@ -5,5 +5,7 @@ export function cleanCommand(command) {
 }
 
 export function getCommandParams(command) {
-  return cleanCommand(command).slice(1);
+  const commandCleaned = cleanCommand(command);
+
+  return commandCleaned.slice(1).filter((elem) => elem != "");
 }

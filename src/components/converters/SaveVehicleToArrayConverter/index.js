@@ -3,13 +3,15 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import {
   HStack,
   VStack,
-  Textarea,
   IconButton,
-  Checkbox,
+  FormControl,
+  FormLabel,
+  Switch,
 } from "@chakra-ui/react";
 
 import { getCommandParams } from "../../../utils/getCommandParams";
-import ResultTextArea from "../../ResultTextArea";
+import ResultTextarea from "../../ResultTextarea";
+import TextareaWithTitle from "../../TextareaWithTitle";
 
 const SaveVehicleToArrayConverter = () => {
   // const [allowedParams, setAllowedParams] = useState([]);
@@ -39,6 +41,8 @@ const SaveVehicleToArrayConverter = () => {
     const lines = saveText.split("\n").filter((elem) => elem != "");
     const saves = lines.map((line) => line.split(" // "));
 
+    console.log(saves);
+
     const convertedLines = saves.map(convertSave);
 
     setConvertText(convertedLines.join("\n"));
@@ -55,29 +59,55 @@ const SaveVehicleToArrayConverter = () => {
           spacing={4}
           justifyContent="center"
         >
-          <Checkbox
-            size="md"
-            color="white"
-            colorScheme="white"
-            defaultIsChecked
-          >
-            Checkbox
-          </Checkbox>
-          <Checkbox
-            size="md"
-            color="white"
-            colorScheme="white"
-            defaultIsChecked
-          >
-            Checkbox
-          </Checkbox>
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              modelid
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
+
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              spawn_X
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
+
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              spawn_Y
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
+
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              z_angle
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
+
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              color1
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
+
+          <FormControl w="auto" display="flex" alignItems="center">
+            <FormLabel mb="0" color="white">
+              color2
+            </FormLabel>
+            <Switch colorScheme="secondary" />
+          </FormControl>
         </HStack>
-        <Textarea
+        <TextareaWithTitle
+          title="AddStaticVehicle"
+          onChange={handleChangeSaveText}
           resize="none"
           colorScheme="primary"
           variant="filled"
           borderTopRadius="0"
-          onChange={handleChangeSaveText}
         />
       </VStack>
       <IconButton
@@ -89,7 +119,7 @@ const SaveVehicleToArrayConverter = () => {
         onClick={handleClickConvert}
         variant="link"
       />
-      <ResultTextArea result={convertText} />
+      <ResultTextarea result={convertText} />
     </VStack>
   );
 };
