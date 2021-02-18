@@ -3,7 +3,7 @@ import { HStack, IconButton, Box, useClipboard } from "@chakra-ui/react";
 
 import TextareaWithTitle from "../TextareaWithTitle";
 
-const ResultTextarea = ({ result }) => {
+const ResultTextArea = ({ result }) => {
   const { hasCopied, onCopy } = useClipboard(result);
 
   function downloadResult() {}
@@ -49,4 +49,4 @@ const ResultTextarea = ({ result }) => {
   );
 };
 
-export default ResultTextarea;
+export default ResultTextArea;
